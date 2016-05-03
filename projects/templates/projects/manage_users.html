@@ -1,0 +1,35 @@
+ {% extends 'projects/base.html' %}
+     {% block content %}
+        <h1>Información del autor</h1>
+        {% if errors %}
+        <p class="red-text">Error: Faltan Campos por llenar y/o hay errores de formato.</p>
+        {% endif%}
+        <form method="post" accept-charset="utf-8">
+            {% csrf_token %}
+            <p>
+                
+
+            <label for="{{ form.Nombres.id_for_label }}">Nombres</label>
+			{{ form.Nombres }}
+			</p>
+			<p>
+			    
+				<label for="{{ form.Apellidos.id_for_label }}">Apellidos</label>
+			{{ form.Apellidos }}
+			</p>
+			<p>
+			    
+			
+				<label for="{{ form.Correos.id_for_label }}">Correo Institucional</label>
+			{{ form.Correo }}
+			</p>
+			<p>
+			    
+			
+				<label for="{{ form.Codigo.id_for_label }}">Código</label>
+			{{ form.Codigo }}
+			
+			</p>
+            <button type="submit" class="save btn btn-default red darken-4">Guardar</button>
+        </form>
+    {% endblock%}

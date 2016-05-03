@@ -1,0 +1,50 @@
+    {% extends 'projects/base.html' %}
+
+    {% block content%}
+        <h1>Información del Proyecto</h1>
+        {% if errors %}
+        <p class="red-text">Error: Faltan Campos por llenar y/o las longitudes de caracteres no corresponden a las especificaciones dadas.</p>
+        <p> {{errors}}</p>
+        {% endif%}
+        <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+            
+            <p>
+			<label for="{{ form.Titulo.id_for_label }}">Título</label>
+			{{ form.Titulo }}
+			</p>
+			<p>
+			    
+		
+				<label for="{{ form.Title.id_for_label }}">Title</label>
+			{{ form.Title }}
+			</p>
+			<p>
+			
+				<label for="{{ form.Resumen.id_for_label }}">Resumen</label>
+				{{ form.Resumen }}
+			</p>
+			<p>
+			
+				<label for="{{ form.Abstract.id_for_label }}">Abstract</label>
+			{{ form.Abstract }}
+			</p>
+			<p>
+			    
+		
+				<label for="{{ form.Tutores.id_for_label }}">Tutores</label>
+			{{ form.Tutores }}
+			</p>
+			<p>
+			
+				<label for="{{ form.Programa.id_for_label }}">Programa Académico</label>
+			{{ form.Programa }}
+			</p>
+			<p>
+				<label for="{{ form.Imagen.id_for_label }}">Imagen</label>
+			{{ form.Imagen }}
+			</p>
+			
+				
+            <button type="submit" class="save btn  btn-default red darken-4">Guardar</button>
+        </form>
+    {% endblock %}

@@ -1,0 +1,79 @@
+{% extends "projects/base.html" %}
+{% load staticfiles %}
+{% load unfriendly_tags %}
+
+{% block content %}
+    <div>
+    <h1>Miembros del Equipo <a href="{% url 'projects:new_team' project.id %}" class="top-menu">+</a></h1>
+    {% if users %}
+        <table>
+            <thead>
+              <tr>
+                  <th data-field="Nombres">Nombres</th>
+                  <th data-field="Apellidos">Apellidos</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+              {% for user in users%}
+                <tr>
+                    <td>{{user.Nombres}}</td>
+                    <td>{{user.Apellidos}}</td>
+                </tr>
+            {% endfor%}
+              
+            </tbody>
+          </table>
+        
+    {% else %}
+        <p>No hay miembros</p>
+    {% endif %}
+    
+    <blockquote>
+      Para agregar otro miembro dar clic en el +
+    </blockquote>
+    </div>
+    <div class="top-border">
+    {% url 'projects:edit' project.id as edit_url %}
+    <h1>Información del proyecto <a href="{{ edit_url|obfuscate }}">Editar</a></h1>
+    <h2> <strong>Título: </strong> {{project.Titulo}} </h2>
+    <h2> <strong>Resumen: </strong></h2>
+    <p>{{project.Resumen}}</p>
+    
+    <h2> <strong>Title: </strong> {{project.Title}}</h2>
+    <h2> <strong>Abstract: </strong></h2>
+    <p>{{project.Abstract}}</p>
+    
+    <h2><strong>Programa: </strong> </h2>
+    <p>INGENIERÍA {{project.Programa}}</p>
+    
+    <h2><strong>Tutores: </strong> </h2>
+    <p>{{project.Tutores}}</p>
+
+    <img class="materialboxed" width="650" src="{% static 'projects/images/' %}{{project.Imagen}}" alt="My image"/>
+        
+    <a class="waves-effect waves-light btn modal-trigger red darken-4" href="#modal1">Finalizar</a>
+  </div>
+  {% if users %}
+       <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Proceso Finalizado</h4>
+        <p>Su proyecto se ha guardo éxitosamente! Gracias por su información.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'projects:index' %}" class=" modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+      </div>
+    </div>
+        
+    {% else %}
+     <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Faltan Miembros</h4>
+        <p>Debe agregar por lo menos un miembro a su proyecto.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class=" modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+      </div>
+    </div>
+  {% endif%}
+{% endblock%}

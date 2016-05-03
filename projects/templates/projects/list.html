@@ -1,0 +1,12 @@
+{% extends "projects/base.html" %}
+{% load unfriendly_tags %}
+{% block content %}
+    <a href="{% url 'projects:logout'%}">Logout</a>
+    <h1>Proyectos</h1>
+    <ul>
+    {% for project in projects %}
+        {% url 'projects:details' project.id as project_url %}
+        <p>{{project.Titulo}} <a href="{{  project_url|obfuscate  }}">Detalles</a></p>
+    {% endfor%}
+    </ul> 
+{% endblock%}

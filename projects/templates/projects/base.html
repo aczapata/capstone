@@ -1,0 +1,45 @@
+{% load staticfiles %}
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>{% block title %} {% endblock %}</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'projects/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'projects/css/style5.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="red darken-4" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="{% url 'projects:index' %}" class="brand-logo">Capstone Design</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    {% block content %}
+    {% endblock %}
+    </div>
+  </div>
+
+  <footer class="page-footer black">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 l6">
+          <img class="responsive-img logo" src="{% static 'projects/images/Logo Uninorte 50 años-01.png' %}"/>
+        </div>
+        <div class="col s12 l6">
+          <p class="white-text">Km.5 Vía Puerto Colombia - Tel. (57) (5) 3509509 - Barranquilla, Colombia © Universidad del Norte</p>
+        </div>
+        
+      </div>
+    </div>
+  </footer>
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'projects/js/materialize.js' %}"></script>
+  <script src="{% static 'projects/js/init.js' %}"></script>
+  
+  </body>
+</html>

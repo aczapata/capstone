@@ -1,0 +1,52 @@
+{% extends "projects/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <h1>Miembros del Equipo</h1>
+    {% if users %}
+        <table>
+            <thead>
+              <tr>
+                  <th data-field="Nombres">Nombres</th>
+                  <th data-field="Apellidos">Apellidos</th>
+                  <th data-field="Correo">Correo</th>
+                  <th data-field="Codigo">Código</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+              {% for user in users%}
+                <tr>
+                    <td>{{user.Nombres}}</td>
+                    <td>{{user.Apellidos}}</td>
+                    <td>{{user.Correo}}</td>
+                    <td>{{user.Codigo}}</td>
+                </tr>
+            {% endfor%}
+              
+            </tbody>
+          </table>
+    {% else %}
+        <p>No hay miembros</p>
+    {% endif %}
+
+    <h1>Información del proyecto </h1>
+    <h2> <strong>Título: </strong> {{project.Titulo}} </h2>
+    <h2> <strong>Resumen: </strong></h2>
+    <p>{{project.Resumen}}</p>
+    
+    <h2> <strong>Title: </strong> {{project.Title}}</h2>
+    <h2> <strong>Abstract: </strong></h2>
+    <p>{{project.Abstract}}</p>
+    
+    <h2><strong>Programa: </strong> </h2>
+    <p>Ingenieria {{project.Programa}}</p>
+    
+    <h2><strong>Tutores: </strong> </h2>
+    <p>{{project.Tutores}}</p>
+
+    <img class="materialboxed" width="650" src="{% static 'projects/images/' %}{{project.Imagen}}" alt="My image"/>
+        
+    <a href="{% url 'projects:list' %}" class="btn red darken-4">Regresar</a>
+
+{% endblock%}
