@@ -5,7 +5,7 @@ from django.db import models
 # Create your models here.
 
 class Project(models.Model):
-    
+
     MAJOR_CHOICES = (
         ('CIVIL', 'Ingeniería civil'),
         ('ELECTRICA', 'Ingeniería eléctrica'),
@@ -13,9 +13,9 @@ class Project(models.Model):
         ('INDUSTRIAL', 'Ingeniería industrial'),
         ('MECANICA', 'Ingeniería mecánica'),
         ('SISTEMAS', 'Ingeniería de Sistemas'),
-        
+
     )
-    
+
     Titulo = models.CharField(max_length=255 )
     Title = models.CharField(max_length=255)
     Resumen= models.TextField(max_length=2000)
@@ -32,5 +32,5 @@ class User(models.Model):
     Correo= models.EmailField(max_length=255)
     Codigo= models.IntegerField()
     project= models.ForeignKey(Project, on_delete=models.CASCADE)
-    
-    
+
+

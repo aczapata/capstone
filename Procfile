@@ -1,1 +1,1 @@
-web: gunicorn capstone.wsgi --log-file -
+web: gunicorn capstone_design.wsgi --log-file -
