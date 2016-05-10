@@ -22,6 +22,5 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('projects.urls')),
-    #url(r'^u/', include('unfriendly.urls')),
-    #url(r'^accounts/login/$', auth_views.login),
+    url(r'^accounts/login/$', auth_views.login),
 ]
