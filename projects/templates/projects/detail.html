@@ -1,10 +1,10 @@
 {% extends "projects/base.html" %}
 {% load staticfiles %}
-{% load unfriendly_tags %}
+{% load obfuscate %}
 
 {% block content %}
     <div>
-    <h1>Miembros del Equipo <a href="{% url 'projects:new_team' project.id %}" class="top-menu">+</a></h1>
+    <h1>Miembros del Equipo <a href="{% url 'projects:new_team' project_id %}" class="top-menu">+</a></h1>
     {% if users %}
         <table>
             <thead>
@@ -34,8 +34,7 @@
     </blockquote>
     </div>
     <div class="top-border">
-    {% url 'projects:edit' project.id as edit_url %}
-    <h1>Información del proyecto <a href="{{ edit_url|obfuscate }}">Editar</a></h1>
+    <h1>Información del proyecto <a href="{% url 'projects:edit' project_id %}">Editar</a></h1>
     <h2> <strong>Título: </strong> {{project.Titulo}} </h2>
     <h2> <strong>Resumen: </strong></h2>
     <p>{{project.Resumen}}</p>

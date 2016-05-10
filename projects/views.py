@@ -12,6 +12,8 @@ from django.contrib import admin
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from url_obfuscate.decorators import deobfuscate
+from url_obfuscate.helpers import obfuscate, deobfuscate
 
 def logout_view(request):
     logout(request)
@@ -24,12 +26,13 @@ def index(request):
 def list_projects(request):
     projects= Project.objects.all()
     context={"projects": projects}
-    return render(request, 'projects/list.html', context)
-    
+    return render(request, 'projects/list.html',context)
+
 def detail(request, project_id):
+    project_id = deobfuscate(str(project_id))
     project = get_object_or_404(Project, pk=project_id)
     users= project.user_set.all()
-    return render(request, 'projects/detail.html', {'project': project, 'users': users})
+    return render(request, 'projects/detail.html', {'project': project, 'users': users, 'project_id': obfuscate(project_id)})
 
 def details(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
@@ -42,7 +45,8 @@ def new_project(request):
         if form.is_valid():
             project = form.save(commit=False)
             project.save()
-            return HttpResponseRedirect(reverse('projects:detail', args=(project.id,)))
+            project_id = obfuscate('%d' % (project.id))
+            return HttpResponseRedirect(reverse('projects:detail', args=(project_id,)))
         else:
             return render(request, 'projects/project_edit.html', {'form': form, 'errors':form.errors.as_data() })
     else:
@@ -52,6 +56,7 @@ def new_project(request):
 def edit(request, project_id=None):
     
     if project_id:
+        project_id = deobfuscate(str(project_id))
         project = get_object_or_404(Project, pk=project_id)
     else:
         project = ProjectForm()
@@ -61,19 +66,22 @@ def edit(request, project_id=None):
         if form.is_valid():
             project = form.save(commit=False)
             project.save()
-            return HttpResponseRedirect(reverse('projects:detail', args=(project.id,)))
+            project_id = obfuscate(str(project_id))
+            return HttpResponseRedirect(reverse('projects:detail', args=(project_id,)))
         else:
             return render(request, 'projects/project_edit.html', {'form': form, 'errors':form.errors.as_data() })
 
     return render(request,'projects/project_edit.html', {'form': form, })
 
 def new_team(request, project_id):
+    project_id = deobfuscate(str(project_id))
     project = get_object_or_404(Project, pk=project_id)
     if request.method == 'POST':
         form = UserForm(request.POST,request.FILES)
         if form.is_valid():
             project.user_set.create(Codigo=form['Codigo'].value(), Nombres=form['Nombres'].value(), Apellidos=form['Apellidos'].value(), Correo=form['Correo'].value())
-            return HttpResponseRedirect(reverse('projects:detail', args=(project.id,)))       
+            project_id = obfuscate('%d' % (project.id))
+            return HttpResponseRedirect(reverse('projects:detail', args=(project_id,)))       
         else:
             return render(request, 'projects/manage_users.html', {'form': form, 'errors':form.errors.as_data() })
     else:
