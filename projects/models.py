@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
+from django.core.urlresolvers import reverse
+
 
 # Create your models here.
 
@@ -26,6 +28,10 @@ class Project(models.Model):
     def __unicode__(self):
         return self.Titulo
 
+    def admin_image(self):
+        return reverse('projects:details', args=(self.id, ))
+    admin_image.allow_tags = True
+    
 class User(models.Model):
     Nombres = models.CharField(max_length=255)
     Apellidos = models.CharField(max_length=255)
