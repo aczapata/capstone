@@ -1,8 +1,10 @@
+dj-database-url==0.4.1
 Django==1.9.6
 django-unfriendly==0.4.1
 gunicorn==19.4.5
 Pillow==3.2.0
 psycopg2==2.6.1
 pycrypto==2.6.1
+url-obfuscate==0.1.3
 uWSGI==2.0.12
 whitenoise==3.0
