@@ -15,14 +15,15 @@ from django.contrib.auth import logout
 from url_obfuscate.decorators import deobfuscate
 from url_obfuscate.helpers import obfuscate, deobfuscate
 
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('projects:index'))
 
 def index(request):
     return render(request, 'projects/index.html')
-    
-@login_required    
+
+@login_required
 def list_projects(request):
     projects= Project.objects.all()
     context={"projects": projects}
@@ -38,7 +39,7 @@ def details(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
     users= project.user_set.all()
     return render(request, 'projects/details_complete.html', {'project': project, 'users': users})
-    
+
 def new_project(request):
     if request.method == "POST":
         form = ProjectForm(request.POST,request.FILES)
@@ -54,7 +55,7 @@ def new_project(request):
         return render(request, 'projects/project_edit.html', {'form': form})
 
 def edit(request, project_id=None):
-    
+
     if project_id:
         project_id = deobfuscate(str(project_id))
         project = get_object_or_404(Project, pk=project_id)
@@ -81,7 +82,7 @@ def new_team(request, project_id):
         if form.is_valid():
             project.user_set.create(Codigo=form['Codigo'].value(), Nombres=form['Nombres'].value(), Apellidos=form['Apellidos'].value(), Correo=form['Correo'].value())
             project_id = obfuscate('%d' % (project.id))
-            return HttpResponseRedirect(reverse('projects:detail', args=(project_id,)))       
+            return HttpResponseRedirect(reverse('projects:detail', args=(project_id,)))
         else:
             return render(request, 'projects/manage_users.html', {'form': form, 'errors':form.errors.as_data() })
     else:
